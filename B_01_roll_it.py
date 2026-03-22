@@ -86,7 +86,15 @@ rounds_played = 0
 
 game_history = []
 
-game_goal = int(input("game goal: "))     # should be a function call
+# ask the user if they want instructions (check they say yes / no)
+want_instructions = yes_no("Do you want to see the instructions ")
+
+# Display the instructions if the user wants to see them...
+if want_instructions == "yes":
+    instructions()
+
+
+game_goal = int_check()
 
 # play multiple rounds until a winner has been found
 while comp_score < game_goal and user_score < game_goal:
@@ -178,29 +186,23 @@ while comp_score < game_goal and user_score < game_goal:
     comp_score += comp_points
     user_score += user_points
 
-# generate round results and add it to the game history list
-    game_results = (f"round {rounds_played}: user points: {user_points} | computer points "
-                    f"{comp_points}, {winner} wins ({user_score} | {comp_score})")
-
-    game_history.append(game_results)
-
-
     # show overall scores (add this to rounds loop)
     print("*** game update ***")    # replace with call to statement generator
     print(f"user score: {user_score} | computer score {comp_score}")
 
+    history_item = f"Round {rounds_played}: user score: {user_score} | computer score {comp_score}"
+    game_history.append(history_item)
+
 # end of entire game, output final results
 
-make_statement( "Game over", "🏁")
-
+make_statement( "game over", "*")
 print()
 if user_score > comp_score:
-    make_statement( "The user won", "👍")  # replace this with statement
+    print("the user won")   # replace this with statement generator call
 else:
-    make_statement( "The computer won", "🧑‍💻")
+    print("the computer won")
 
 print()
 make_statement("Game History", "🎲")
-
 for item in game_history:
-    print (item)
+    print(item)
